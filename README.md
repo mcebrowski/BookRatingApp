@@ -11,8 +11,8 @@ Program allows user to choose if all given information will be stored in compute
 
 Options:
 
-1. Add rating
-2. Change the title
-3. Show Statistics
-4. Start from beginning
-   q Exit from program
+- type 1 to add rating
+- type 2 to change the title
+- type 3 to show Statistics
+- type 4 to start from beginning
+- type q to exit from program
