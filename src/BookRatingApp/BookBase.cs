@@ -12,14 +12,14 @@ namespace BookRatingApp
 
     public abstract void SaveRating(double rating);
 
-    public virtual void ChangeFileName(string oldTitle, string newTitle) { }
+    public abstract void ChangeBookTitle(string title);
 
     public abstract Statistics ShowStatistics();
 
     public void AddRating(string rating)
     {
-      string[] AcceptedStrings = { "1+", "2-", "2+", "3-", "3+", "4-", "4+", "5-", "5+", "6-", "6+", "7-", "7+", "8-", "8+", "9-", "9+", "10-" };
-      bool check = Array.Exists(AcceptedStrings, el => el == rating);
+      string[] acceptedStrings = { "1+", "2-", "2+", "3-", "3+", "4-", "4+", "5-", "5+", "6-", "6+", "7-", "7+", "8-", "8+", "9-", "9+", "10-" };
+      bool isStringAccepted = Array.Exists(acceptedStrings, el => el == rating);
 
       double number;
       double.TryParse(rating, out number);
@@ -30,7 +30,7 @@ namespace BookRatingApp
         Console.WriteLine($"Entered {number}");
       }
 
-      else if (check)
+      else if (isStringAccepted)
       {
         switch (rating)
         {
@@ -43,7 +43,6 @@ namespace BookRatingApp
           case "3+": CheckRating(3.5); break;
           case "2+": CheckRating(2.5); break;
           case "1+": CheckRating(1.5); break;
-          case "1": CheckRating(1); break;
           case "10-": CheckRating(9.75); break;
           case "9-": CheckRating(8.75); break;
           case "8-": CheckRating(7.75); break;
@@ -53,9 +52,11 @@ namespace BookRatingApp
           case "4-": CheckRating(3.75); break;
           case "3-": CheckRating(2.75); break;
           case "2-": CheckRating(1.75); break;
-          default:
-            throw new ArgumentException("Invalid value. Please entere value between 1 and 10 with + or -(ex. 6+)");
         }
+      }
+      else
+      {
+        Console.WriteLine("Invalid value. Please entere value between 1 and 10 with + or -(ex. 6+)");
       }
     }
 
@@ -84,34 +85,6 @@ namespace BookRatingApp
       else
       {
         Console.WriteLine($"Rating {rating}... New rating is added");
-      }
-    }
-
-    public void ChangeBookTitle(string title)
-    {
-      bool digit = false;
-      foreach (var letter in title)
-      {
-        if (char.IsDigit(letter))
-        {
-          digit = true;
-        }
-      }
-      if (title == "")
-      {
-        Console.WriteLine("Title cannot be empty. Title has not been changed. Please enter valid book title");
-      }
-      else if (!digit)
-      {
-        string oldTitle = this.Title;
-        string newTitle = title;
-        this.Title = title;
-        Console.WriteLine($"The new title is {Title}");
-        ChangeFileName(oldTitle, newTitle);
-      }
-      else
-      {
-        Console.WriteLine("There is a number in given title. It is not allowed.");
       }
     }
   }

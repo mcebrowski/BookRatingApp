@@ -26,7 +26,35 @@ namespace BookRatingApp
       }
     }
 
-    public override void ChangeFileName(string oldTitle, string newTitle)
+    public override void ChangeBookTitle(string title)
+    {
+      bool isDigit = false;
+      foreach (var letter in title)
+      {
+        if (char.IsDigit(letter))
+        {
+          isDigit = true;
+        }
+      }
+      if (title == "")
+      {
+        Console.WriteLine("Title can`t be empty. Title has not been changed. Please enter valid book title");
+      }
+      else if (!isDigit)
+      {
+        string oldTitle = this.Title;
+        string newTitle = title;
+        this.Title = title;
+        Console.WriteLine($"The new title is {Title}");
+        ChangeFileName(oldTitle, newTitle);
+      }
+      else
+      {
+        Console.WriteLine("There is a number in given title. It is not allowed.");
+      }
+    }
+
+    private void ChangeFileName(string oldTitle, string newTitle)
     {
 
       string oldFileName = $"{oldTitle}.txt";

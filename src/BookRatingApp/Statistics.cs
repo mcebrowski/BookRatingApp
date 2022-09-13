@@ -29,15 +29,16 @@ namespace BookRatingApp
     {
       get
       {
-        switch (Average)
+        var letter = Average switch
         {
-          case var d when d >= 9: return "A";
-          case var d when d >= 8: return "B";
-          case var d when d >= 7: return "C";
-          case var d when d >= 6: return "D";
-          case var d when d >= 5: return "E";
-          default: return "F";
-        }
+          >= 9 => "A",
+          < 9 and >= 8 => "B",
+          < 8 and >= 7 => "C",
+          < 7 and >= 6 => "D",
+          < 6 and >= 5 => "E",
+          _ => "F"
+        };
+        return letter;
       }
     }
     public void Add(double number)
